@@ -1,0 +1,30 @@
+{
+  "name": "academic-portfolio",
+  "version": "1.0.0",
+  "description": "Academic portfolio showcasing research publications and papers",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "build": "cd frontend && npm install && npm run build",
+    "install": "cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vhalulu/academic-portfolio.git"
+  },
+  "author": "Vincent Alulu",
+  "license": "MIT",
+  "keywords": [
+    "academic",
+    "portfolio",
+    "research",
+    "publications",
+    "economics"
+  ]
+}
