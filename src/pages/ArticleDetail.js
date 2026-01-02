@@ -1,10 +1,14 @@
+// src/pages/ArticleDetail.js
+// UPDATED: Fixed slug bug + Supabase integration
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Calendar, Users, Download, Eye, FileText } from 'lucide-react';
+import { articlesAPI } from '../lib/supabase';
 import './ArticleDetail.css';
 
 const ArticleDetail = () => {
-  const { id } = useParams();
+  // FIX: Changed from 'id' to 'slug' to match App.js route
+  const { slug } = useParams();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,25 +16,21 @@ const ArticleDetail = () => {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await fetch(`/api/articles/${id}`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          setArticle(data);
-        } else {
-          throw new Error(`Article not found (${response.status})`);
-        }
+        // Use Supabase to fetch article by slug
+        const data = await articlesAPI.getBySlug(slug);
+        setArticle(data);
       } catch (err) {
-        setError(err.message);
+        console.error('Error fetching article:', err);
+        setError(err.message || 'Article not found');
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) {
+    if (slug) {
       fetchArticle();
     }
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (

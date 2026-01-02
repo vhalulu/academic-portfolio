@@ -1,6 +1,9 @@
+// src/pages/Home.js
+// UPDATED: Supabase integration for featured articles
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Code, TrendingUp, Users, Download, Eye } from 'lucide-react';
+import { articlesAPI } from '../lib/supabase';
 import './Home.css';
 
 const Home = () => {
@@ -15,18 +18,15 @@ const Home = () => {
   const loadFeaturedArticles = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/articles/featured/list');
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      // Fetch featured articles from Supabase
+      const data = await articlesAPI.getFeatured(3); // Get 3 featured articles
       
-      const data = await response.json();
       console.log('Featured articles data:', data);
       
       // Ensure we have an array
       const articlesArray = Array.isArray(data) ? data : [];
-      setFeaturedArticles(articlesArray.slice(0, 3)); // Get first 3 articles
+      setFeaturedArticles(articlesArray);
       setError(null);
     } catch (err) {
       console.error('Error loading featured articles:', err);
@@ -170,7 +170,7 @@ const Home = () => {
           ) : (
             <div className="articles-grid">
               {featuredArticles.length > 0 ? featuredArticles.map((article) => (
-                <article key={article._id || Math.random()} className="article-card">
+                <article key={article.id} className="article-card">
                   <div className="article-header">
                     <div className="article-meta">
                       <span className="article-type">{(article.type || 'article').replace('_', ' ')}</span>

@@ -1,5 +1,8 @@
+// src/pages/Articles.js
+// UPDATED: Supabase integration while preserving your UI
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, ExternalLink, Github, Database, FileText, Eye, Download } from 'lucide-react';
+import { articlesAPI } from '../lib/supabase';
 import './Articles.css';
 
 const Articles = () => {
@@ -21,24 +24,23 @@ const Articles = () => {
 
   const fetchArticles = async () => {
     try {
-      console.log('Fetching articles...');
-      const response = await fetch('/api/articles');
+      console.log('Fetching articles from Supabase...');
+      setLoading(true);
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      // Fetch all articles from Supabase
+      const { articles: data } = await articlesAPI.getAll();
       
-      const data = await response.json();
       console.log('Articles response:', data);
       
       // Ensure data is an array
       const articlesArray = Array.isArray(data) ? data : [];
       setArticles(articlesArray);
-      setLoading(false);
+      setError(null);
     } catch (err) {
       console.error('Error fetching articles:', err);
       setError(err.message);
-      setArticles([]); // Set empty array on error
+      setArticles([]);
+    } finally {
       setLoading(false);
     }
   };
@@ -199,7 +201,7 @@ const Articles = () => {
             </div>
           ) : (
             filteredArticles.map(article => (
-              <article key={article._id} className="article-card">
+              <article key={article.id} className="article-card">
                 {/* Article Header */}
                 <div className="article-header">
                   <div className="article-meta">
@@ -224,7 +226,7 @@ const Articles = () => {
 
                 {/* Article Title */}
                 <h2 className="article-title">
-                  <a href={`/articles/${article.slug || article._id}`}>
+                  <a href={`/articles/${article.slug || article.id}`}>
                     {article.title}
                   </a>
                 </h2>
