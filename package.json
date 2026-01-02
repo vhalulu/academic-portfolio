@@ -4,22 +4,24 @@
   "private": true,
   "description": "Academic Portfolio with React and Supabase",
   "scripts": {
-    "dev": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "migrate": "node scripts/migrateToSupabase.js"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.89.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "lucide-react": "^0.263.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "dotenv": "^16.6.1",
-    "mongoose": "^8.21.0"
+    "dotenv": "^16.3.1",
+    "mongodb": "^6.0.0"
   },
   "eslintConfig": {
     "extends": [
