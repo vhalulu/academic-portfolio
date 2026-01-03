@@ -1,187 +1,304 @@
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
 
-export default function Home() {
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [status, setStatus] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus('');
+
+    try {
+      const response = await fetch('https://formspree.io/f/meeozzlj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+        setTimeout(() => setStatus(''), 5000);
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/30 to-slate-50">
-      {/* Top Navigation Bar */}
-      <nav className="bg-white/90 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl shadow-lg"></div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-              KaziHub
-            </span>
-          </div>
-          <div className="flex gap-4">
-            <Link href="/login" className="px-6 py-2.5 text-gray-700 hover:text-blue-600 font-semibold transition-colors">
-              Log In
-            </Link>
-            <Link href="/signup" className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all">
-              Sign Up
-            </Link>
-          </div>
+    <div style={{ minHeight: '100vh', background: '#f8f9fa', padding: '2rem 0' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <h1 style={{ fontSize: '3rem', fontWeight: '700', color: '#2c3e50', marginBottom: '0.5rem' }}>Get In Touch</h1>
+          <p style={{ fontSize: '1.1rem', color: '#666', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
+            Interested in collaboration, consulting, or discussing research? I'd love to hear from you.
+          </p>
         </div>
-      </nav>
 
-      <div className="container mx-auto px-6 py-20">
-        <div className="max-w-6xl mx-auto">
-          
-          {/* Hero Section */}
-          <div className="text-center mb-20 space-y-8">
-            <div className="inline-block">
-              <span className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold shadow-sm">
-                🇰🇪 Built for Kenya
-              </span>
-            </div>
-            
-            <h1 className="text-6xl md:text-7xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-cyan-900 bg-clip-text text-transparent">
-                Kenya's Trusted Marketplace
-              </span>
-              <br />
-              <span className="text-gray-800">for Local Tasks</span>
-            </h1>
-            
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              KaziHub connects you with verified local taskers for cleaning, repairs, errands, and more — all paid securely with M-Pesa after the work is done.
-Post tasks or find work, complete jobs with confidence, and keep 100% of what you earn. No commissions. No hidden fees.
-            </p>
-
-            <div className="flex gap-4 justify-center pt-6">
-              <Link 
-                href="/signup"
-                className="px-10 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold text-lg shadow-xl shadow-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/40 transform hover:-translate-y-1 transition-all duration-300"
-              >
-                Post a Task →
-              </Link>
-              <Link 
-                href="#how-it-works"
-                className="px-10 py-4 bg-white text-gray-700 rounded-xl font-semibold text-lg border-2 border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all duration-300"
-              >
-                Become a Tasker
-              </Link>
-            </div>
-          </div>
-
-          {/* Value Proposition Card */}
-          <div className="mb-20">
-            <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-700 rounded-3xl p-12 shadow-2xl">
-              {/* Decorative Elements */}
-              <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-400/20 rounded-full blur-3xl -mr-36 -mt-36"></div>
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl -ml-48 -mb-48"></div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'start' }}>
+          {/* Contact Information */}
+          <div>
+            <div style={{ background: 'white', borderRadius: '12px', padding: '2rem', boxShadow: '0 2px 20px rgba(0,0,0,0.05)', marginBottom: '2rem' }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#2c3e50', marginBottom: '1.5rem' }}>Contact Information</h2>
               
-              <div className="relative z-10 text-center space-y-6">
-                <div className="inline-block p-4 bg-white/10 backdrop-blur-sm rounded-2xl">
-                  <p className="text-6xl">💰</p>
-                </div>
-                <h2 className="text-5xl font-bold text-white">
-                  Keep 100% of Your Earnings
-                </h2>
-                <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-                  No commissions. No hidden fees. Taskers keep every shilling they earn. We make money from premium features — not your hard work.
-                </p>
-                <div className="flex gap-8 justify-center pt-6">
-                  <div className="text-center">
-                    <p className="text-5xl font-bold text-white mb-1">0%</p>
-                    <p className="text-blue-200">Commission</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ background: '#667eea', color: 'white', padding: '0.75rem', borderRadius: '10px' }}>
+                    <Mail size={20} />
                   </div>
-                  <div className="w-px bg-white/20"></div>
-                  <div className="text-center">
-                    <p className="text-5xl font-bold text-white mb-1">100%</p>
-                    <p className="text-blue-200">Your Money</p>
-                  </div>
-                  <div className="w-px bg-white/20"></div>
-                  <div className="text-center">
-                    <p className="text-5xl font-bold text-white mb-1">Ksh 0</p>
-                    <p className="text-blue-200">Hidden Fees</p>
+                  <div>
+                    <h3 style={{ margin: '0', fontSize: '1rem', fontWeight: '600', color: '#2c3e50' }}>Email</h3>
+                    <p style={{ margin: '0', color: '#666' }}>valulu@ucsd.edu</p>
                   </div>
                 </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ background: '#667eea', color: 'white', padding: '0.75rem', borderRadius: '10px' }}>
+                    <Phone size={20} />
+                  </div>
+                  <div>
+                    <h3 style={{ margin: '0', fontSize: '1rem', fontWeight: '600', color: '#2c3e50' }}>Phone</h3>
+                    <p style={{ margin: '0', color: '#666' }}>+1 (858) 241-4795</p>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ background: '#667eea', color: 'white', padding: '0.75rem', borderRadius: '10px' }}>
+                    <MapPin size={20} />
+                  </div>
+                  <div>
+                    <h3 style={{ margin: '0', fontSize: '1rem', fontWeight: '600', color: '#2c3e50' }}>Location</h3>
+                    <p style={{ margin: '0', color: '#666' }}>La Jolla, California, USA</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div style={{ background: 'white', borderRadius: '12px', padding: '2rem', boxShadow: '0 2px 20px rgba(0,0,0,0.05)' }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#2c3e50', marginBottom: '1.5rem' }}>Connect Online</h2>
+              
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <a 
+                  href="https://www.linkedin.com/in/vincent-alulu-14979275/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    width: '50px', 
+                    height: '50px', 
+                    background: '#0077B5', 
+                    color: 'white', 
+                    borderRadius: '10px', 
+                    textDecoration: 'none',
+                    transition: 'transform 0.3s ease'
+                  }}
+                >
+                  <Linkedin size={24} />
+                </a>
+                
+                <a 
+                  href="https://github.com/vhalulu" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    width: '50px', 
+                    height: '50px', 
+                    background: '#333', 
+                    color: 'white', 
+                    borderRadius: '10px', 
+                    textDecoration: 'none',
+                    transition: 'transform 0.3s ease'
+                  }}
+                >
+                  <Github size={24} />
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Feature Cards */}
-          <div className="grid md:grid-cols-3 gap-8 mb-20">
+          {/* Contact Form */}
+          <div style={{ background: 'white', borderRadius: '12px', padding: '2rem', boxShadow: '0 2px 20px rgba(0,0,0,0.05)' }}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#2c3e50', marginBottom: '1.5rem' }}>Send a Message</h2>
             
-            {/* For Clients */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-md">
-                  <span className="text-3xl">💼</span>
+            {/* Success/Error Messages */}
+            {status === 'success' && (
+              <div style={{ 
+                background: '#d4edda', 
+                color: '#155724', 
+                padding: '1rem', 
+                borderRadius: '8px', 
+                marginBottom: '1rem',
+                border: '1px solid #c3e6cb'
+              }}>
+                ✓ Message sent successfully! I'll get back to you soon.
+              </div>
+            )}
+            
+            {status === 'error' && (
+              <div style={{ 
+                background: '#f8d7da', 
+                color: '#721c24', 
+                padding: '1rem', 
+                borderRadius: '8px', 
+                marginBottom: '1rem',
+                border: '1px solid #f5c6cb'
+              }}>
+                ✗ Failed to send message. Please try again or email directly.
+              </div>
+            )}
+            
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2c3e50' }}>Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Your Name"
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      border: '1px solid #dee2e6',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      outline: 'none',
+                      transition: 'border-color 0.3s ease'
+                    }}
+                  />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">For Clients</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  Post any task — from home services to professional support. Get multiple quotes, choose the best tasker, and pay securely with M-Pesa after task completion.
-                </p>
-                <div className="flex items-center text-blue-600 font-semibold group-hover:gap-2 transition-all">
-                  <span>Post a task</span>
-                  <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                
+                <div>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2c3e50' }}>Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="your.email@example.com"
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem',
+                      border: '1px solid #dee2e6',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      outline: 'none',
+                      transition: 'border-color 0.3s ease'
+                    }}
+                  />
                 </div>
               </div>
-            </div>
-            
-            {/* For Taskers */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-cyan-200">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative">
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-100 to-cyan-200 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-md">
-                  <span className="text-3xl">⚡</span>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">For Taskers</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  Browse available tasks in your area. Apply with your price. Complete the work. Get paid instantly. Keep 100% of earnings.
-                </p>
-                <div className="flex items-center text-cyan-600 font-semibold group-hover:gap-2 transition-all">
-                  <span>Find work</span>
-                  <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Built for Kenya */}
-            <div className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 via-cyan-100 to-blue-200 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-md">
-                  <span className="text-3xl">🇰🇪</span>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Built for Kenya</h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
-                  M-Pesa integration. All 47 counties. Local customer support. Fair pricing. Designed for Kenyan needs.
-                </p>
-                <div className="flex items-center text-blue-600 font-semibold group-hover:gap-2 transition-all">
-                  <span>See coverage</span>
-                  <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Trust Badges */}
-          <div className="bg-white rounded-2xl p-12 shadow-xl border border-gray-100">
-            <div className="grid md:grid-cols-4 gap-8 text-center">
-              <div className="group hover:scale-105 transition-transform">
-                <p className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">0%</p>
-                <p className="text-gray-600 font-semibold">Platform Fee</p>
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2c3e50' }}>Subject</label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  placeholder="What is this regarding?"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #dee2e6',
+                    borderRadius: '8px',
+                    fontSize: '1rem',
+                    outline: 'none',
+                    transition: 'border-color 0.3s ease'
+                  }}
+                />
               </div>
-              <div className="group hover:scale-105 transition-transform">
-                <p className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">24/7</p>
-                <p className="text-gray-600 font-semibold">Support</p>
-              </div>
-              <div className="group hover:scale-105 transition-transform">
-                <p className="text-5xl mb-2">🔒</p>
-                <p className="text-gray-600 font-semibold">Secure Payments</p>
-              </div>
-              <div className="group hover:scale-105 transition-transform">
-                <p className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">47</p>
-                <p className="text-gray-600 font-semibold">Counties</p>
-              </div>
-            </div>
-          </div>
 
+              <div>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', color: '#2c3e50' }}>Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows="6"
+                  placeholder="Your message here..."
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #dee2e6',
+                    borderRadius: '8px',
+                    fontSize: '1rem',
+                    outline: 'none',
+                    transition: 'border-color 0.3s ease',
+                    resize: 'vertical'
+                  }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                style={{
+                  background: isSubmitting ? '#999' : '#667eea',
+                  color: 'white',
+                  border: 'none',
+                  padding: '1rem 2rem',
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  transition: 'background 0.3s ease',
+                  opacity: isSubmitting ? 0.7 : 1
+                }}
+              >
+                <Send size={20} />
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </main>
-  )
-}
+    </div>
+  );
+};
+
+export default Contact;
