@@ -81,7 +81,9 @@ const Home = () => {
                   <span className="hero-role">Economist & Data Scientist</span>
                 </h1>
                 <p className="hero-description">
-                  Development economist using Stata and R to analyze agricultural and economic data for evidence-based policy design.
+                  Specializing in development economics, agricultural data systems, and policy analysis. 
+                  I use statistical programming languages like Stata, R, and Python to uncover 
+                  insights from complex economic data and inform evidence-based policy decisions.
                 </p>
                 <div className="hero-actions">
                   <Link to="/articles" className="btn btn-primary">
