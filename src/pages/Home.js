@@ -1,8 +1,8 @@
 // src/pages/Home.js
-// UPDATED: Supabase integration for featured articles
+// Arial Rosario - International Relations Portfolio
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Code, TrendingUp, Users, Download, Eye } from 'lucide-react';
+import { ArrowRight, BookOpen, Globe, TrendingUp, Users, Download, Eye } from 'lucide-react';
 import { articlesAPI } from '../lib/supabase';
 import './Home.css';
 
@@ -38,19 +38,19 @@ const Home = () => {
   };
 
   const skills = [
-    { name: 'Stata', level: 95, color: '#1f4788' },
-    { name: 'R', level: 90, color: '#276dc3' },
-    { name: 'Python', level: 85, color: '#3776ab' },
-    { name: 'Econometrics', level: 92, color: '#e74c3c' },
-    { name: 'Data Analysis', level: 94, color: '#27ae60' },
-    { name: 'JavaScript', level: 80, color: '#f39c12' }
+    { name: 'Policy Analysis', level: 90, color: '#6366f1' },
+    { name: 'Diplomatic Communication', level: 88, color: '#8b5cf6' },
+    { name: 'International Law', level: 85, color: '#ec4899' },
+    { name: 'Travel Blogging', level: 93, color: '#f59e0b' },
+    { name: 'Cross-Cultural Relations', level: 95, color: '#10b981' },
+    { name: 'Storytelling & Writing', level: 92, color: '#3b82f6' }
   ];
 
   const stats = [
-    { label: 'Research Articles', value: '4+', icon: BookOpen },
-    { label: 'Programming Projects', value: '25+', icon: Code },
-    { label: 'Collaborations', value: '8+', icon: Users },
-    { label: 'Citations', value: '150+', icon: TrendingUp }
+    { label: 'Years Experience', value: '3+', icon: TrendingUp },
+    { label: 'Projects Completed', value: '15+', icon: BookOpen },
+    { label: 'Countries Worked', value: '8+', icon: Globe },
+    { label: 'Stakeholder Relations', value: '50+', icon: Users }
   ];
 
   return (
@@ -63,7 +63,7 @@ const Home = () => {
               <div className="profile-photo">
                 <img 
                   src="/images/profile.jpg" 
-                  alt="Vincent Alulu - Economist & Data Scientist"
+                  alt="Arial Rosario - International Relations Specialist"
                   className="profile-image"
                   onError={(e) => {
                     // Hide image if not found
@@ -77,19 +77,22 @@ const Home = () => {
               <div className="hero-text">
                 <h1 className="hero-title">
                   <span className="hero-greeting">Hello, I'm</span>
-                  <span className="hero-name">Vincent Alulu</span>
-                  <span className="hero-role">Economist & Data Scientist</span>
+                  <span className="hero-name">Arial Rosario</span>
+                  <span className="hero-role">International Relations Specialist</span>
                 </h1>
                 <p className="hero-description">
-                  Development economist using Stata and R to analyze agricultural and economic data for evidence-based policy design.
+                  Passionate about global diplomacy and international cooperation with 3 years of 
+                  experience in policy analysis, stakeholder engagement, and cross-cultural communication. 
+                  I love traveling around the world and telling people's stories through engaging blogs, 
+                  bridging cultures and fostering understanding through authentic narratives.
                 </p>
                 <div className="hero-actions">
                   <Link to="/articles" className="btn btn-primary">
                     <BookOpen size={20} />
-                    View Research
+                    View Projects
                   </Link>
                   <Link to="/resume" className="btn btn-secondary">
-                    <Code size={20} />
+                    <Globe size={20} />
                     See Experience
                   </Link>
                 </div>
@@ -114,9 +117,9 @@ const Home = () => {
       {/* Skills Section */}
       <section className="skills-section">
         <div className="container">
-          <h2 className="section-title">Technical Skills</h2>
+          <h2 className="section-title">Core Competencies</h2>
           <p className="section-subtitle">
-            Proficient in statistical programming and econometric analysis
+            Expertise in international relations, policy development, and cultural storytelling
           </p>
           <div className="skills-grid">
             {skills.map((skill, index) => (
@@ -144,23 +147,23 @@ const Home = () => {
       <section className="featured-articles">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">Featured Research</h2>
+            <h2 className="section-title">Featured Work & Stories</h2>
             <p className="section-subtitle">
-              Recent publications and working papers in economics and data science
+              Recent projects, publications, and travel stories from around the world
             </p>
             <Link to="/articles" className="view-all-link">
-              View All Articles <ArrowRight size={16} />
+              View All Projects <ArrowRight size={16} />
             </Link>
           </div>
 
           {loading ? (
             <div className="loading-state">
               <div className="loading-spinner"></div>
-              <p>Loading featured articles...</p>
+              <p>Loading featured projects...</p>
             </div>
           ) : error ? (
             <div className="error-state">
-              <p>Unable to load articles: {error}</p>
+              <p>Unable to load projects: {error}</p>
               <button onClick={loadFeaturedArticles} className="retry-btn">
                 Try Again
               </button>
@@ -171,8 +174,8 @@ const Home = () => {
                 <article key={article.id} className="article-card">
                   <div className="article-header">
                     <div className="article-meta">
-                      <span className="article-type">{(article.type || 'article').replace('_', ' ')}</span>
-                      <span className="article-year">{article.publication?.year || 'No date'}</span>
+                      <span className="article-type">{(article.type || 'project').replace('_', ' ')}</span>
+                      <span className="article-year">{article.publication?.year || 'Recent'}</span>
                     </div>
                     <div className="article-stats">
                       <span className="stat">
@@ -193,15 +196,15 @@ const Home = () => {
                         target="_blank" 
                         rel="noopener noreferrer"
                       >
-                        {article.title || 'Untitled Article'}
+                        {article.title || 'Untitled Project'}
                       </a>
                     ) : (
-                      <span>{article.title || 'Untitled Article'}</span>
+                      <span>{article.title || 'Untitled Project'}</span>
                     )}
                   </h3>
                   
                   <p className="article-abstract">
-                    {(article.abstract || 'No abstract available').substring(0, 150)}...
+                    {(article.abstract || 'No description available').substring(0, 150)}...
                   </p>
                   
                   <div className="article-footer">
@@ -217,7 +220,7 @@ const Home = () => {
                         rel="noopener noreferrer"
                         className="read-more"
                       >
-                        Read Article <ArrowRight size={14} />
+                        View Project <ArrowRight size={14} />
                       </a>
                     )}
                     {article.publication?.doi && (
@@ -234,7 +237,7 @@ const Home = () => {
                 </article>
               )) : (
                 <div className="no-articles">
-                  <p>No featured articles available.</p>
+                  <p>No featured projects available yet. Check back soon!</p>
                 </div>
               )}
             </div>
@@ -246,17 +249,17 @@ const Home = () => {
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">
-            <h2 className="cta-title">Let's Collaborate</h2>
+            <h2 className="cta-title">Let's Connect</h2>
             <p className="cta-description">
-              Interested in research collaboration, consulting, or discussing economic data analysis? 
-              I'd love to hear from you.
+              Interested in collaboration, consulting on international relations, or discussing 
+              policy initiatives? I'd love to connect with you.
             </p>
             <div className="cta-actions">
               <Link to="/contact" className="btn btn-primary">
                 Get In Touch
               </Link>
               <Link to="/resume" className="btn btn-outline">
-                Download CV
+                View Resume
               </Link>
             </div>
           </div>

@@ -77,7 +77,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 style={{ margin: '0', fontSize: '1rem', fontWeight: '600', color: '#2c3e50' }}>Email</h3>
-                    <p style={{ margin: '0', color: '#666' }}>valulu@ucsd.edu</p>
+                    <p style={{ margin: '0', color: '#666' }}>arrosario@ucsd.edu</p>
                   </div>
                 </div>
 
@@ -87,7 +87,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 style={{ margin: '0', fontSize: '1rem', fontWeight: '600', color: '#2c3e50' }}>Phone</h3>
-                    <p style={{ margin: '0', color: '#666' }}>+1 (858) 241-4795</p>
+                    <p style={{ margin: '0', color: '#666' }}>+1 (919) 396-2209</p>
                   </div>
                 </div>
 
@@ -109,7 +109,7 @@ const Contact = () => {
               
               <div style={{ display: 'flex', gap: '1rem' }}>
                 <a 
-                  href="https://www.linkedin.com/in/vincent-alulu-14979275/" 
+                  href="Your LinkedIn Home URL" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   style={{ 
