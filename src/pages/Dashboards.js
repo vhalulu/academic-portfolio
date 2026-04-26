@@ -24,7 +24,7 @@ const dashboards = [
     tags: ['USA', 'Macroeconomics', 'R Shiny', 'FRED'],
     locations: 'FRED · BLS · BEA',
     updated: 'April 2025',
-    url: '',  // add ShinyApps URL when deployed
+    url: '',
     status: 'coming-soon',
   },
   {
@@ -80,7 +80,7 @@ export default function Dashboards() {
             </div>
 
             {d.status === 'live' ? (
-              
+              <a
                 href={d.url}
                 target="_blank"
                 rel="noreferrer"
