@@ -13,11 +13,12 @@ const Articles = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [filterYear, setFilterYear] = useState('all');
-
+  
   useEffect(() => {
     fetchArticles();
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     filterArticles();
   }, [articles, searchTerm, filterType, filterYear]);

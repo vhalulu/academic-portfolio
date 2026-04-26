@@ -98,15 +98,12 @@ const Home = () => {
               </div>
               
               <div className="hero-stats">
-                {stats.map((stat, index) => {
-                  const Icon = stat.icon;
-                  return (
-                    <div key={stat.label} className="stat-item" style={{ animationDelay: `${index * 0.1}s` }}>
-                      <div className="stat-value">{stat.value}</div>
-                      <div className="stat-label">{stat.label}</div>
-                    </div>
-                  );
-                })}
+                              {stats.map((stat, index) => (
+                <div key={stat.label} className="stat-item" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div className="stat-value">{stat.value}</div>
+                  <div className="stat-label">{stat.label}</div>
+                </div>
+              ))}
               </div>
             </div>
           </div>
