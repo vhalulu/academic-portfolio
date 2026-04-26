@@ -13,7 +13,7 @@ import ArticleDetail from './pages/ArticleDetail';
 import Portfolio from './pages/Portfolio';
 import Resume from './pages/Resume';
 import Contact from './pages/Contact';
-
+import Dashboards from './pages/Dashboards';
 function App() {
   return (
     <Router>
@@ -27,6 +27,7 @@ function App() {
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/dashboards" element={<Dashboards />} />
           </Routes>
         </main>
         <Footer />

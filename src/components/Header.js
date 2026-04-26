@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, BookOpen, Code, FileText, Mail } from 'lucide-react';
+import { Menu, X, User, BookOpen, Code, FileText, Mail, BarChart2 } from 'lucide-react';
 import './Header.css';
 
 const Header = () => {
@@ -11,6 +11,7 @@ const Header = () => {
     { name: 'Home', href: '/', icon: User },
     { name: 'Articles', href: '/articles', icon: BookOpen },
     { name: 'Portfolio', href: '/portfolio', icon: Code },
+    { name: 'Dashboards', href: '/dashboards', icon: BarChart2 },  // NEW
     { name: 'Resume', href: '/resume', icon: FileText },
     { name: 'Contact', href: '/contact', icon: Mail },
   ];
