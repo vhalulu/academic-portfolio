@@ -14,6 +14,7 @@ const Articles = () => {
   const [filterType, setFilterType] = useState('all');
   const [filterYear, setFilterYear] = useState('all');
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchArticles();
   }, []);
@@ -27,13 +28,8 @@ const Articles = () => {
     try {
       console.log('Fetching articles from Supabase...');
       setLoading(true);
-      
-      // Fetch all articles from Supabase
       const { articles: data } = await articlesAPI.getAll();
-      
       console.log('Articles response:', data);
-      
-      // Ensure data is an array
       const articlesArray = Array.isArray(data) ? data : [];
       setArticles(articlesArray);
       setError(null);
@@ -51,25 +47,19 @@ const Articles = () => {
       setFilteredArticles([]);
       return;
     }
-    
     let filtered = articles.filter(article => {
       const matchesSearch = article.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            article.abstract?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            (article.tags && article.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
-      
       const matchesType = filterType === 'all' || article.type === filterType;
       const matchesYear = filterYear === 'all' || article.publication?.year?.toString() === filterYear;
-      
       return matchesSearch && matchesType && matchesYear;
     });
-    
     setFilteredArticles(filtered);
   };
 
   const getAvailableYears = () => {
-    if (!Array.isArray(articles) || articles.length === 0) {
-      return [];
-    }
+    if (!Array.isArray(articles) || articles.length === 0) return [];
     const years = [...new Set(articles.map(article => article.publication?.year).filter(year => year))];
     return years.sort((a, b) => b - a);
   };
@@ -135,7 +125,6 @@ const Articles = () => {
   return (
     <div className="articles-page">
       <div className="container">
-        {/* Header */}
         <div className="page-header">
           <h1 className="page-title">Research & Publications</h1>
           <p className="page-subtitle">
@@ -143,7 +132,6 @@ const Articles = () => {
           </p>
         </div>
 
-        {/* Search and Filters */}
         <div className="search-filters">
           <div className="search-bar">
             <Search className="search-icon" size={20} />
@@ -188,12 +176,10 @@ const Articles = () => {
           </div>
         </div>
 
-        {/* Results */}
         <div className="results-summary">
           <p>Showing {filteredArticles?.length || 0} of {articles?.length || 0} articles</p>
         </div>
 
-        {/* Articles List */}
         <div className="articles-list">
           {!Array.isArray(filteredArticles) || filteredArticles.length === 0 ? (
             <div className="no-results">
@@ -203,7 +189,6 @@ const Articles = () => {
           ) : (
             filteredArticles.map(article => (
               <article key={article.id} className="article-card">
-                {/* Article Header */}
                 <div className="article-header">
                   <div className="article-meta">
                     <span className={`article-status ${getStatusBadgeClass(article.status)}`}>
@@ -212,7 +197,6 @@ const Articles = () => {
                     <span className="article-year">{article.publication?.year || 'N/A'}</span>
                     {article.featured && <span className="featured-badge">Featured</span>}
                   </div>
-                  
                   <div className="article-stats">
                     <span className="stat">
                       <Eye size={16} />
@@ -225,14 +209,12 @@ const Articles = () => {
                   </div>
                 </div>
 
-                {/* Article Title */}
                 <h2 className="article-title">
                   <a href={`/articles/${article.slug || article.id}`}>
                     {article.title}
                   </a>
                 </h2>
 
-                {/* Authors */}
                 <div className="article-authors">
                   {article.authors?.map((author, index) => (
                     <span key={index} className="author">
@@ -243,7 +225,6 @@ const Articles = () => {
                   ))}
                 </div>
 
-                {/* Publication Info */}
                 {article.publication?.journal && (
                   <div className="publication-info">
                     <strong>{article.publication.journal}</strong>
@@ -257,14 +238,11 @@ const Articles = () => {
                   </div>
                 )}
 
-                {/* Abstract */}
                 <p className="article-abstract">
                   {article.abstract}
                 </p>
 
-                {/* Links Section */}
                 <div className="article-links">
-                  {/* Main Publication Link */}
                   {article.publication?.url && (
                     <a 
                       href={article.publication.url} 
@@ -277,7 +255,6 @@ const Articles = () => {
                     </a>
                   )}
                   
-                  {/* DOI Link */}
                   {article.publication?.doi && (
                     <a 
                       href={`https://doi.org/${article.publication.doi}`} 
@@ -290,7 +267,6 @@ const Articles = () => {
                     </a>
                   )}
 
-                  {/* Additional Links */}
                   {article.links && article.links.map((link, index) => (
                     <a 
                       key={index}
@@ -306,7 +282,6 @@ const Articles = () => {
                   ))}
                 </div>
 
-                {/* Tags */}
                 <div className="article-footer">
                   <div className="article-tags">
                     {article.tags?.slice(0, 5).map((tag, index) => (
