@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Filter, ExternalLink, Github, Database, FileText, Eye, Download } from 'lucide-react';
 import { articlesAPI } from '../lib/supabase';
 import './Articles.css';
-
+/* eslint-disable react-hooks/exhaustive-deps */
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState([]);
