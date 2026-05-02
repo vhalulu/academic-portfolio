@@ -1,7 +1,8 @@
 // src/pages/Home.js
-// UPDATED: Supabase integration for featured articles
+// UPDATED: Supabase integration for featured articles + SEO optimization
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { ArrowRight, BookOpen, Code, TrendingUp, Users, Download, Eye } from 'lucide-react';
 import { articlesAPI } from '../lib/supabase';
 import './Home.css';
@@ -55,6 +56,49 @@ const Home = () => {
 
   return (
     <div className="home">
+      {/* SEO Meta Tags */}
+      <Helmet>
+        {/* Primary Meta Tags */}
+        <title>Vincent Alulu - Full Stack Developer | Economist & Data Scientist</title>
+        <meta 
+          name="description" 
+          content="Full-stack developer specializing in secure web applications, data analysis, and econometrics. Expert in React, Node.js, Supabase, Python, R, and Stata. Building scalable, security-first solutions for enterprise clients." 
+        />
+        <meta 
+          name="keywords" 
+          content="full stack developer, web developer, React developer, Node.js, Supabase, data scientist, economist, econometrics, Python, R, Stata, secure web applications, OWASP compliance, Vincent Alulu" 
+        />
+        <meta name="author" content="Vincent Alulu" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://academic-portfolio-chi-ochre.vercel.app/" />
+        <meta property="og:title" content="Vincent Alulu - Full Stack Developer & Data Scientist" />
+        <meta 
+          property="og:description" 
+          content="Full-stack developer building secure, scalable web applications. Expert in React, Node.js, Supabase, and data analysis with Python, R, and Stata." 
+        />
+        <meta property="og:image" content="https://academic-portfolio-chi-ochre.vercel.app/images/profile.jpg" />
+        
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://academic-portfolio-chi-ochre.vercel.app/" />
+        <meta property="twitter:title" content="Vincent Alulu - Full Stack Developer & Data Scientist" />
+        <meta 
+          property="twitter:description" 
+          content="Full-stack developer building secure, scalable web applications. Expert in React, Node.js, Supabase, and data analysis." 
+        />
+        <meta property="twitter:image" content="https://academic-portfolio-chi-ochre.vercel.app/images/profile.jpg" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://academic-portfolio-chi-ochre.vercel.app/" />
+        
+        {/* Additional Meta Tags */}
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-container">
@@ -98,12 +142,12 @@ const Home = () => {
               </div>
               
               <div className="hero-stats">
-                              {stats.map((stat, index) => (
-                <div key={stat.label} className="stat-item" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <div className="stat-value">{stat.value}</div>
-                  <div className="stat-label">{stat.label}</div>
-                </div>
-              ))}
+                {stats.map((stat, index) => (
+                  <div key={stat.label} className="stat-item" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <div className="stat-value">{stat.value}</div>
+                    <div className="stat-label">{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
