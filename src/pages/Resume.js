@@ -48,7 +48,7 @@ const Resume = () => {
                 </div>
                 <span className="date-range">
                   <Calendar size={14} />
-                  2024 - Present
+                  2024 - 2026
                 </span>
               </div>
               <p className="specialization">Specialization: Program Design and Evaluation</p>
